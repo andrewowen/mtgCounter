@@ -6,12 +6,6 @@ import { Subscribe } from "unstated";
 import { RootStore } from "../app/RootComponent";
 
 export class MainScreen extends Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: "Title"
-    };
-  };
-
   render() {
     return (
       <Subscribe to={[RootStore]}>
@@ -29,7 +23,6 @@ export class MainScreen extends Component {
                 />
               </View>
             </View>
-            <View style={{ flex: 3 }} />
           </>
         )}
       </Subscribe>
@@ -39,12 +32,11 @@ export class MainScreen extends Component {
 
 const styles = StyleSheet.create({
   playerContainer: {
-    flex: 1,
-    alignItems: "center",
     flexDirection: "column",
     backgroundColor: "#2C303A",
     marginTop: 20,
-    padding: 10
+    padding: 10,
+    height: "20%"
   },
   playerLifeContainer: {
     flexDirection: "column",
@@ -56,7 +48,7 @@ const styles = StyleSheet.create({
   playerLifeText: {
     flex: 2,
     color: "white",
-    fontSize: 70,
+    fontSize: 50,
     fontFamily: "SourceCodePro-Bold",
     alignSelf: "center"
   }

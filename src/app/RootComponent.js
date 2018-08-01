@@ -1,30 +1,24 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/FontAwesome5";
 import { createBottomTabNavigator } from "react-navigation";
 import { Container, Provider } from "unstated";
 import { MainScreen } from "../screens/MainScreen";
 import { MyDecksScreen } from "../screens/MyDecksScreen";
-import { getMyInfo } from "../helpers";
+import { getMyInfo, getLeaderboard } from "../helpers";
+import { LeaderboardScreen } from "../screens/LeaderboardScreen";
 
 const RootStack = createBottomTabNavigator(
   {
-    Home: MainScreen,
-    MyDecks: MyDecksScreen
+    "Life Counter": { screen: MainScreen },
+    "My Decks": { screen: MyDecksScreen },
+    Leaderboard: { screen: LeaderboardScreen }
   },
   {
     navigationOptions: () => ({
-      tabBarIcon: () => <Icon name="rocket" size={30} />
+      tabBarIcon: () => <Icon name="trophy" size={25} />
     }),
-    initialRouteName: "Home"
+    initialRouteName: "Leaderboard"
   }
 );
 
@@ -32,7 +26,8 @@ export class RootStore extends Container {
   state = {
     maxLife: 40,
     currentLife: 40,
-    myDeck: {}
+    myDeck: {},
+    leaderboard: []
   };
 
   addLife = () => {
@@ -46,20 +41,32 @@ export class RootStore extends Container {
       currentLife: prevState.currentLife - 1
     }));
   };
+
+  refetchLeaderBoard = async () => {
+    const leaderboard = await getLeaderboard();
+    this.setState(
+      {
+        leaderboard
+      },
+      () => {
+        console.warn("state updated");
+      }
+    );
+  };
 }
 
 type Props = {};
 export class RootComponent extends Component<Props> {
-  componentDidMount = async () => {
-    const rootStore = new RootStore();
-    const myDeck = await getMyInfo();
-    rootStore.setState({
-      myDeck
-    });
-  };
-
   render() {
     const rootStore = new RootStore();
+    this.componentDidMount = async () => {
+      const deck = await getMyInfo();
+      const leaderboard = await getLeaderboard();
+      rootStore.setState({
+        myDeck: deck,
+        leaderboard
+      });
+    };
     return (
       <Provider inject={[rootStore]}>
         <RootStack />

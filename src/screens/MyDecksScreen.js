@@ -11,23 +11,32 @@ import { RootStore } from "../app/RootComponent";
 
 export class MyDecksScreen extends Component<Props> {
   render() {
-    const decks = [{ a: "1" }, { a: "2" }];
-
     return (
       <Subscribe to={[RootStore]}>
         {rootStore => (
           <FlatList
-            data={decks}
-            keyExtractor={item => item.a}
+            style={{ marginTop: 20 }}
+            data={rootStore.state.myDeck.decks}
+            keyExtractor={item => JSON.stringify(item.id)}
             renderItem={({ item }) => (
               <View
                 style={{
                   padding: 20,
-                  backgroundColor: "#B5B8B8",
-                  borderWidth: 1
+                  backgroundColor: "#9ECCC9",
+                  borderWidth: 10,
+                  borderStyle: "solid",
+                  borderColor: "#549288"
                 }}
               >
-                <Text>{item.a}</Text>
+                <Text
+                  style={{
+                    color: "#fff",
+                    fontStyle: "normal",
+                    fontWeight: "bold"
+                  }}
+                >
+                  {item.alias.toUpperCase()}
+                </Text>
               </View>
             )}
           />
