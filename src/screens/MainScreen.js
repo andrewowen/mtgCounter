@@ -1,42 +1,34 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Circle } from "react-native-svg";
+import { SafeAreaView } from "react-navigation";
 import PlayerLifeButton from "../components/PlayerLifeButton";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { Subscribe } from "unstated";
-import { RootStore } from "../app/RootComponent";
 
 export class MainScreen extends Component {
   render() {
+    const { currentLife, addLife, subtractLife } = this.props;
     return (
-      <Subscribe to={[RootStore]}>
-        {rootStore => (
-          <>
-            <View style={styles.playerContainer}>
-              <View style={styles.playerLifeContainer}>
-                <PlayerLifeButton buttonText="+" onPress={rootStore.addLife} />
-                <Text style={styles.playerLifeText}>
-                  {rootStore.state.currentLife}
-                </Text>
-                <PlayerLifeButton
-                  buttonText="-"
-                  onPress={rootStore.subtractLife}
-                />
-              </View>
-            </View>
-          </>
-        )}
-      </Subscribe>
+      <>
+        <View style={styles.playerContainer}>
+          <View style={styles.playerLifeContainer}>
+            <PlayerLifeButton buttonText="+" onPress={addLife} />
+            <Text style={styles.playerLifeText}>{currentLife}</Text>
+            <PlayerLifeButton buttonText="-" onPress={subtractLife} />
+          </View>
+        </View>
+        <View style={{ flex: 3 }} />
+      </>
     );
   }
 }
 
 const styles = StyleSheet.create({
   playerContainer: {
+    flex: 1,
     flexDirection: "column",
     backgroundColor: "#2C303A",
     marginTop: 20,
-    padding: 10,
-    height: "20%"
+    padding: 10
   },
   playerLifeContainer: {
     flexDirection: "column",
@@ -48,7 +40,7 @@ const styles = StyleSheet.create({
   playerLifeText: {
     flex: 2,
     color: "white",
-    fontSize: 50,
+    fontSize: 70,
     fontFamily: "SourceCodePro-Bold",
     alignSelf: "center"
   }
