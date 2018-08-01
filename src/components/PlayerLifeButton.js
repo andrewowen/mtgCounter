@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-const PlayerLifeButton = props => {
+export const PlayerLifeButton = props => {
   return (
     <TouchableOpacity
       style={[styles.playerLifeButton, { backgroundColor: props.buttonColor }]}
