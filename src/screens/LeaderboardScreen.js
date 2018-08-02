@@ -16,7 +16,6 @@ export class LeaderboardScreen extends Component<Props> {
 
   _renderHeader = ({ item }) => {
     return <Text>Hi</Text>;
-    );
   };
 
   _renderLeaderBoard = (item, index) => {
