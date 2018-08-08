@@ -1,9 +1,9 @@
-import { API_KEY } from "react-native-dotenv";
+import { API_KEY } from 'react-native-dotenv';
 
 export const getMyInfo = async () => {
-  let myInfo = await (await fetch("https://hawthorn.nishtahir.com/player/8", {
+  let myInfo = await (await fetch('https://hawthorn.nishtahir.com/players/9', {
     headers: {
-      "x-api-key": API_KEY
+      'x-api-key': API_KEY
     }
   })).json();
   return myInfo;
@@ -11,12 +11,23 @@ export const getMyInfo = async () => {
 
 export const getLeaderboard = async () => {
   let leaderboard = await (await fetch(
-    "https://hawthorn.nishtahir.com/deck/leaderboard",
+    'https://hawthorn.nishtahir.com/decks/leaderboard',
     {
       headers: {
-        "x-api-key": API_KEY
+        'x-api-key': API_KEY
       }
     }
   )).json();
   return leaderboard;
+};
+
+export const getCommanderCardImage = async commander => {
+  const url =
+    `https://api.magicthegathering.io/v1/cards?` +
+    `name=${commander}&` +
+    `supertypes=legendary&` +
+    `types=creature`;
+  let res = await (await fetch(url)).json();
+  let comm = res.cards[0];
+  return comm;
 };

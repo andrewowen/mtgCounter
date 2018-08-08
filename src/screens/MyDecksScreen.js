@@ -4,7 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
-  ToucableOpacity
+  TouchableOpacity
 } from "react-native";
 import { Subscribe } from "unstated";
 import { RootStore } from "../app/RootComponent";
@@ -15,29 +15,34 @@ export class MyDecksScreen extends Component<Props> {
       <Subscribe to={[RootStore]}>
         {rootStore => (
           <FlatList
-            style={{ marginTop: 20 }}
             data={rootStore.state.myDeck.decks}
             keyExtractor={item => JSON.stringify(item.id)}
             renderItem={({ item }) => (
-              <View
+              <TouchableOpacity
                 style={{
-                  padding: 20,
-                  backgroundColor: "#9ECCC9",
-                  borderWidth: 10,
-                  borderStyle: "solid",
-                  borderColor: "#549288"
+                  flex: 1,
+                  alignSelf: 'stretch',
+                  flexDirection: 'row',
+                  padding: 15,
+                  borderBottomWidth: 3,
+                  borderBottomStartRadius: 15,
+                  borderBottomEndRadius: 15
+                }}
+                onPress={() => {
+                  this.props.navigation.navigate('My Deck Details', {
+                    item
+                  });
                 }}
               >
                 <Text
                   style={{
-                    color: "#fff",
                     fontStyle: "normal",
                     fontWeight: "bold"
                   }}
                 >
-                  {item.alias.toUpperCase()}
+                  {item.commander}
                 </Text>
-              </View>
+              </TouchableOpacity>
             )}
           />
         )}

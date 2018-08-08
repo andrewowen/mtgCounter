@@ -1,26 +1,15 @@
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome5";
-import { createBottomTabNavigator } from "react-navigation";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  Easing,
+  Animated
+} from "react-native";
 import { Container, Provider } from "unstated";
-import { MainScreen } from "../screens/MainScreen";
-import { MyDecksScreen } from "../screens/MyDecksScreen";
 import { getMyInfo, getLeaderboard } from "../helpers";
-import { LeaderboardScreen } from "../screens/LeaderboardScreen";
-
-const RootStack = createBottomTabNavigator(
-  {
-    "Life Counter": { screen: MainScreen },
-    "My Decks": { screen: MyDecksScreen },
-    Leaderboard: { screen: LeaderboardScreen }
-  },
-  {
-    navigationOptions: () => ({
-      tabBarIcon: () => <Icon name="trophy" size={25} />
-    }),
-    initialRouteName: "Leaderboard"
-  }
-);
+import { RootStack } from "./RootStack";
 
 export class RootStore extends Container {
   state = {
@@ -74,5 +63,3 @@ export class RootComponent extends Component<Props> {
     );
   }
 }
-
-const styles = StyleSheet.create({});

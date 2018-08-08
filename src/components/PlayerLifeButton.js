@@ -6,6 +6,7 @@ const PlayerLifeButton = props => {
     <TouchableOpacity
       style={[styles.playerLifeButton, { backgroundColor: props.buttonColor }]}
       onPress={props.onPress}
+      disabled={props.currentLife === 0}
     >
       <Text>{props.buttonText}</Text>
     </TouchableOpacity>

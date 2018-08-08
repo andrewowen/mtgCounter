@@ -6,6 +6,9 @@ import { Subscribe } from "unstated";
 import { RootStore } from "../app/RootComponent";
 
 export class MainScreen extends Component {
+  static navigationOptions = () => {
+    headerTitle: "Hi";
+  };
   render() {
     return (
       <Subscribe to={[RootStore]}>
@@ -20,6 +23,7 @@ export class MainScreen extends Component {
                 <PlayerLifeButton
                   buttonText="-"
                   onPress={rootStore.subtractLife}
+                  currentLife={rootStore.state.currentLife}
                 />
               </View>
             </View>
@@ -34,9 +38,8 @@ const styles = StyleSheet.create({
   playerContainer: {
     flexDirection: "column",
     backgroundColor: "#2C303A",
-    marginTop: 20,
     padding: 10,
-    height: "20%"
+    height: "25%"
   },
   playerLifeContainer: {
     flexDirection: "column",
