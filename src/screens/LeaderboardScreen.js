@@ -64,32 +64,7 @@ export class LeaderboardScreen extends Component<Props> {
             data={rootStore.state.leaderboard}
             keyExtractor={item => JSON.stringify(item.id)}
             renderItem={({ item, index }) => (
-              <View
-                style={{
-                  flex: 1,
-                  alignSelf: "stretch",
-                  flexDirection: "row",
-                  padding: 15,
-                  borderBottomWidth: 3,
-                  borderBottomStartRadius: 15,
-                  borderBottomEndRadius: 15
-                }}
-              >
-                <View style={{ flex: 2 }}>
-                  <TouchableOpacity
-                    onPress={() =>
-                      alert(`W: ${item.wins} L: ${item.games - item.wins}`)
-                    }
-                  >
-                    <Text>
-                      {index + 1}. {item.commander}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={{ flex: 1, flexDirection: "row-reverse" }}>
-                  <Text>{Number(item.elo).toFixed(2)}</Text>
-                </View>
-              </View>
+              this._renderLeaderBoard(item, index)
             )}
           />
         )}
