@@ -19,27 +19,14 @@ export class MyDecksScreen extends Component<Props> {
             keyExtractor={item => JSON.stringify(item.id)}
             renderItem={({ item }) => (
               <TouchableOpacity
-                style={{
-                  flex: 1,
-                  alignSelf: 'stretch',
-                  flexDirection: 'row',
-                  padding: 15,
-                  borderBottomWidth: 3,
-                  borderBottomStartRadius: 15,
-                  borderBottomEndRadius: 15
-                }}
+                style={styles.decklist}
                 onPress={() => {
                   this.props.navigation.navigate('My Deck Details', {
                     item
                   });
                 }}
               >
-                <Text
-                  style={{
-                    fontStyle: "normal",
-                    fontWeight: "bold"
-                  }}
-                >
+                <Text>
                   {item.commander}
                 </Text>
               </TouchableOpacity>
@@ -50,3 +37,15 @@ export class MyDecksScreen extends Component<Props> {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  decklist: {
+    flex: 1,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+    padding: 15,
+    borderBottomWidth: 3,
+    borderBottomStartRadius: 15,
+    borderBottomEndRadius: 15
+  }
+})

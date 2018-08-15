@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   Platform,
   StyleSheet,
@@ -6,31 +6,16 @@ import {
   View,
   Easing,
   Animated
-} from "react-native";
-import { Container, Provider } from "unstated";
-import { getMyInfo, getLeaderboard } from "../helpers";
-import { RootStack } from "./RootStack";
+} from 'react-native';
+import { Container, Provider } from 'unstated';
+import { getMyInfo, getLeaderboard } from '../helpers';
+import { RootStack } from './RootStack';
 
 export class RootStore extends Container {
   state = {
-    maxLife: 40,
-    currentLife: 40,
     myDeck: {},
     leaderboard: []
   };
-
-  addLife = () => {
-    this.setState((prevState, props) => ({
-      currentLife: prevState.currentLife + 1
-    }));
-  };
-
-  subtractLife = () => {
-    this.setState((prevState, props) => ({
-      currentLife: prevState.currentLife - 1
-    }));
-  };
-
   refetchLeaderBoard = async () => {
     const leaderboard = await getLeaderboard();
     this.setState(
@@ -38,7 +23,7 @@ export class RootStore extends Container {
         leaderboard
       },
       () => {
-        console.warn("state updated");
+        console.warn('state updated');
       }
     );
   };
