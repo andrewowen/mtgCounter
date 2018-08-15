@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome5";
+import Icon from "react-native-vector-icons/Ionicons";
 import { createBottomTabNavigator } from "react-navigation";
 import { Container, Provider } from "unstated";
 import { MainScreen } from "../screens/MainScreen";
@@ -10,14 +10,26 @@ import { LeaderboardScreen } from "../screens/LeaderboardScreen";
 
 const RootStack = createBottomTabNavigator(
   {
-    "Life Counter": { screen: MainScreen },
-    "My Decks": { screen: MyDecksScreen },
-    Leaderboard: { screen: LeaderboardScreen }
+    "Life Counter": {
+      screen: MainScreen,
+      navigationOptions: () => ({
+        tabBarIcon: () => <Icon name="logo-game-controller-a" size={25} />
+      })
+    },
+    "My Decks": {
+      screen: MyDecksScreen,
+      navigationOptions: () => ({
+        tabBarIcon: () => <Icon name="ios-person" size={25} />
+      })
+    },
+    Leaderboard: {
+      screen: LeaderboardScreen,
+      navigationOptions: () => ({
+        tabBarIcon: () => <Icon name="ios-trophy" size={25} />
+      })
+    }
   },
   {
-    navigationOptions: () => ({
-      tabBarIcon: () => <Icon name="trophy" size={25} />
-    }),
     initialRouteName: "Leaderboard"
   }
 );
