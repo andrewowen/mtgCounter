@@ -54,12 +54,14 @@ export class LeaderboardScreen extends Component<Props> {
   };
 
   render() {
+    const { isFetching } = this.state;
+
     return (
       <Subscribe to={[RootStore]}>
         {rootStore => (
           <FlatList
-            style={{ marginTop: 20 }}
-            refreshing={this.state.isFetching}
+            style={styles.container}
+            refreshing={isFetching}
             onRefresh={() => this._onRefresh(rootStore)}
             data={rootStore.state.leaderboard}
             keyExtractor={item => JSON.stringify(item.id)}
