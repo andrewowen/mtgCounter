@@ -22,7 +22,8 @@ export class MainScreen extends Component {
   _deletePlayer = key => {
     const players = [...this.state.players];
     const playerToRemove = players.indexOf(key);
-    alert(players);
+    players.splice(playerToRemove, 1);
+    this.setState({ players });
   };
   render() {
     return (
@@ -39,6 +40,7 @@ export class MainScreen extends Component {
                   key={item.key}
                   store={rootStore}
                   deletePlayer={this._deletePlayer}
+                  item={item}
                 />
               )}
             />

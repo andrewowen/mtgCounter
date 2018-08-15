@@ -20,7 +20,7 @@ export class PlayerComponent extends Component {
   };
 
   render() {
-    const { store } = this.props;
+    const { store, item, deletePlayer } = this.props;
     return (
       <View style={styles.playerContainer}>
         <View style={styles.playerLifeContainer}>
@@ -42,6 +42,7 @@ export class PlayerComponent extends Component {
             flexDirection: 'row-reverse',
             fontFamily: 'SourceCodePro-Bold'
           }}
+          onPress={() => deletePlayer(item)}
         >
           <View
             style={{
