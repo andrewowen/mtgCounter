@@ -1,22 +1,62 @@
 import React, { Component } from 'react';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import {
+  FlatList,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
 import PlayerLifeButton from '../components/PlayerLifeButton';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { Subscribe } from 'unstated';
 import { RootStore } from '../app/RootComponent';
 import { PlayerComponent } from '../components/PlayerComponent';
 
 export class MainScreen extends Component {
   state = {
-    players: []
+    players: [{ key: '00000' }],
+    playerBackgroundColor: [
+      '#E6AF98',
+      '#BBDEF4',
+      '#FFFBDC',
+      '#AECFB3',
+      '#838383'
+    ],
+    selectedBackgroundColor: '',
+    currentIndex: 1
+  };
+
+  _setPlayerBackgroundColor = () => {
+    if (this.state.currentIndex < this.state.playerBackgroundColor.length - 1) {
+      const selectedBackgroundColor = this.state.playerBackgroundColor[
+        this.state.currentIndex
+      ];
+      this.setState({
+        currentIndex: this.state.currentIndex + 1
+      });
+      return selectedBackgroundColor;
+    } else {
+      const selectedBackgroundColor = this.state.playerBackgroundColor[
+        this.state.currentIndex
+      ];
+      this.setState({ currentIndex: 0 });
+      return selectedBackgroundColor;
+    }
   };
 
   _addPlayer = () => {
-    const randomKey = JSON.stringify(Math.floor(1000 + Math.random() * 1000));
-    const newPlayer = { key: randomKey };
-    this.setState({
-      players: [...this.state.players, newPlayer]
-    });
+    const timestamp = Date.now();
+    const newPlayer = { key: timestamp.toString() };
+    this.setState(
+      {
+        selectedBackgroundColor: this._setPlayerBackgroundColor()
+      },
+      () => {
+        this.setState({
+          players: [...this.state.players, newPlayer]
+        });
+      }
+    );
   };
 
   _deletePlayer = key => {
@@ -25,11 +65,38 @@ export class MainScreen extends Component {
     players.splice(playerToRemove, 1);
     this.setState({ players });
   };
+
+  _renderAddPlayerButton = () => {
+    if (this.state.players.length < 5) {
+      return (
+        <TouchableOpacity onPress={() => this._addPlayer()}>
+          <View
+            style={{
+              backgroundColor: '#423184',
+              height: 40,
+              justifyContent: 'center'
+            }}
+          >
+            <Text
+              style={{
+                alignSelf: 'center',
+                color: '#ffff',
+                fontFamily: 'SourceCodePro-Bold'
+              }}
+            >
+              Add Player
+            </Text>
+          </View>
+        </TouchableOpacity>
+      );
+    }
+  };
   render() {
     return (
       <Subscribe to={[RootStore]}>
         {rootStore => (
           <>
+            <StatusBar barStyle="light-content" />
             <FlatList
               style={{ height: '100%' }}
               data={this.state.players}
@@ -41,28 +108,11 @@ export class MainScreen extends Component {
                   store={rootStore}
                   deletePlayer={this._deletePlayer}
                   item={item}
+                  backgroundColor={this.state.selectedBackgroundColor}
                 />
               )}
             />
-            <TouchableOpacity onPress={() => this._addPlayer()}>
-              <View
-                style={{
-                  backgroundColor: '#0058A0',
-                  height: 40,
-                  justifyContent: 'center'
-                }}
-              >
-                <Text
-                  style={{
-                    alignSelf: 'center',
-                    color: '#ffff',
-                    fontFamily: 'SourceCodePro-Bold'
-                  }}
-                >
-                  Add Player
-                </Text>
-              </View>
-            </TouchableOpacity>
+            {this._renderAddPlayerButton()}
           </>
         )}
       </Subscribe>
