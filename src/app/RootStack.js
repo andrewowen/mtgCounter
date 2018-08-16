@@ -11,6 +11,8 @@ import { LeaderboardScreen } from '../screens/LeaderboardScreen';
 import DetailComponent from '../screens/DetailScreen';
 
 const tabIconSize = 25;
+const tabBarPrimaryColor = '#55409A';
+const tabBarPrimaryTextColor = '#fff';
 
 const LifeCounterNavigator = createStackNavigator(
   {
@@ -19,10 +21,10 @@ const LifeCounterNavigator = createStackNavigator(
       navigationOptions: () => ({
         title: 'Life Counter',
         headerStyle: {
-          backgroundColor: '#55409A'
+          backgroundColor: tabBarPrimaryColor
         },
         headerTitleStyle: {
-          color: '#fff'
+          color: tabBarPrimaryTextColor
         }
       })
     }
@@ -39,10 +41,10 @@ const MyDecksNavigator = createStackNavigator(
       navigationOptions: () => ({
         title: 'My Decks',
         headerStyle: {
-          backgroundColor: '#55409A'
+          backgroundColor: tabBarPrimaryColor
         },
         headerTitleStyle: {
-          color: '#fff'
+          color: tabBarPrimaryTextColor
         }
       })
     },
@@ -60,10 +62,10 @@ const LeaderboardNavigator = createStackNavigator(
       navigationOptions: () => ({
         title: 'Leaderboard',
         headerStyle: {
-          backgroundColor: '#55409A'
+          backgroundColor: tabBarPrimaryColor
         },
         headerTitleStyle: {
-          color: '#fff'
+          color: tabBarPrimaryTextColor
         }
       })
     },
@@ -100,6 +102,12 @@ export const RootStack = createBottomTabNavigator(
   },
   {
     initialRouteName: 'Life Counter',
-    tabBarOptions: { activeTintColor: '#55409A' }
+    tabBarOptions: {
+      activeTintColor: tabBarPrimaryColor,
+      style: {
+        height: 60,
+        padding: 5
+      }
+    }
   }
 );
