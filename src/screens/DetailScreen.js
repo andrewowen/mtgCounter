@@ -13,7 +13,7 @@ import { Subscribe } from 'unstated';
 import { RootStore } from '../app/RootComponent';
 import { getCommanderCardImage } from '../helpers';
 
-export default class DetailScreen extends React.Component {
+export default class DetailScreen extends Component {
   state = {
     imageURI: 'png',
     loaded: false,
@@ -48,9 +48,9 @@ export default class DetailScreen extends React.Component {
       );
     }
     return (
-      <View style={{height: "100%", justifyContent: "center"}}>
-        <Text style={{alignSelf:"center"}}>Loading...</Text>
-      </View> 
-    )
+      <View style={{ height: '100%', justifyContent: 'center' }}>
+        <Text style={{ alignSelf: 'center' }}>Loading...</Text>
+      </View>
+    );
   }
 }
