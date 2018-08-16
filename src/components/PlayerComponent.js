@@ -3,6 +3,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PlayerLifeButton from './PlayerLifeButton';
 
+const iconSize = 25;
+
 export class PlayerComponent extends Component {
   state = {
     currentLife: 40,
@@ -58,7 +60,7 @@ export class PlayerComponent extends Component {
             onPress={() => deletePlayer(item)}
           >
             <View>
-              <Icon name="ios-close-circle" size={25} />
+              <Icon name="ios-close-circle" size={iconSize} />
             </View>
           </TouchableOpacity>
         </View>
