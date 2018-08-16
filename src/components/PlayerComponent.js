@@ -8,13 +8,13 @@ export class PlayerComponent extends Component {
     minLife: 0
   };
   addLife = () => {
-    this.setState((prevState, props) => ({
+    this.setState(prevState => ({
       currentLife: prevState.currentLife + 1
     }));
   };
 
   subtractLife = () => {
-    this.setState((prevState, props) => ({
+    this.setState(prevState => ({
       currentLife: prevState.currentLife - 1
     }));
   };
