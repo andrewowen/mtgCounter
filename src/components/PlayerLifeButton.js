@@ -1,13 +1,14 @@
-import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 const PlayerLifeButton = props => {
   return (
     <TouchableOpacity
       style={[styles.playerLifeButton, { backgroundColor: props.buttonColor }]}
       onPress={props.onPress}
+      disabled={props.currentLife === 0}
     >
-      <Text>{props.buttonText}</Text>
+      <Text style={{ fontSize: 18 }}>{props.buttonText}</Text>
     </TouchableOpacity>
   );
 };
@@ -16,9 +17,9 @@ const styles = StyleSheet.create({
   playerLifeButton: {
     flex: 1,
     borderRadius: 10,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center"
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 

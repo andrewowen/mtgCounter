@@ -1,55 +1,69 @@
-import React, { Component } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import PlayerLifeButton from "../components/PlayerLifeButton";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { Subscribe } from "unstated";
-import { RootStore } from "../app/RootComponent";
+import React, { Component } from 'react';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import PlayerLifeButton from '../components/PlayerLifeButton';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Subscribe } from 'unstated';
+import { RootStore } from '../app/RootComponent';
+import { PlayerComponent } from '../components/PlayerComponent';
 
 export class MainScreen extends Component {
+  state = {
+    players: []
+  };
+
+  _addPlayer = () => {
+    const randomKey = JSON.stringify(Math.floor(1000 + Math.random() * 1000));
+    const newPlayer = { key: randomKey };
+    this.setState({
+      players: [...this.state.players, newPlayer]
+    });
+  };
+
+  _deletePlayer = key => {
+    const players = [...this.state.players];
+    const playerToRemove = players.indexOf(key);
+    alert(players);
+  };
   render() {
     return (
       <Subscribe to={[RootStore]}>
         {rootStore => (
           <>
-            <View style={styles.playerContainer}>
-              <View style={styles.playerLifeContainer}>
-                <PlayerLifeButton buttonText="+" onPress={rootStore.addLife} />
-                <Text style={styles.playerLifeText}>
-                  {rootStore.state.currentLife}
-                </Text>
-                <PlayerLifeButton
-                  buttonText="-"
-                  onPress={rootStore.subtractLife}
+            <FlatList
+              style={{ height: '100%' }}
+              data={this.state.players}
+              keyExtractor={item => item.key}
+              renderItem={({ item, index }) => (
+                <PlayerComponent
+                  index={index}
+                  key={item.key}
+                  store={rootStore}
+                  deletePlayer={this._deletePlayer}
                 />
+              )}
+            />
+            <TouchableOpacity onPress={() => this._addPlayer()}>
+              <View
+                style={{
+                  backgroundColor: '#0058A0',
+                  height: 40,
+                  justifyContent: 'center'
+                }}
+              >
+                <Text
+                  style={{
+                    alignSelf: 'center',
+                    color: '#ffff',
+                    fontFamily: 'SourceCodePro-Bold'
+                  }}
+                >
+                  Add Player
+                </Text>
               </View>
-            </View>
+            </TouchableOpacity>
           </>
         )}
       </Subscribe>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  playerContainer: {
-    flexDirection: "column",
-    backgroundColor: "#2C303A",
-    marginTop: 20,
-    padding: 10,
-    height: "20%"
-  },
-  playerLifeContainer: {
-    flexDirection: "column",
-    height: "100%",
-    width: "30%",
-    borderRadius: 10,
-    backgroundColor: "#2E7AC6"
-  },
-  playerLifeText: {
-    flex: 2,
-    color: "white",
-    fontSize: 50,
-    fontFamily: "SourceCodePro-Bold",
-    alignSelf: "center"
-  }
-});

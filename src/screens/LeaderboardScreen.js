@@ -1,38 +1,39 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   View,
   Text,
   FlatList,
   TouchableOpacity,
-  StyleSheet
-} from "react-native";
-import { Subscribe } from "unstated";
-import { RootStore } from "../app/RootComponent";
+  StyleSheet,
+  Easing,
+  Animated
+} from 'react-native';
+import { Subscribe } from 'unstated';
+import { RootStore } from '../app/RootComponent';
+import { getCommanderCardImage } from '../helpers';
 
 export class LeaderboardScreen extends Component<Props> {
   state = {
     isFetching: false
   };
 
-  _renderHeader = ({ item }) => {
-    return <Text>Hi</Text>;
-  };
-
   _renderLeaderBoard = (item, index) => {
     return (
       <View style={styles.leaderboard}>
-        <View style={styles.leaderboard__deckName}>
+        <View style={styles.leaderboard_deckName}>
           <TouchableOpacity
-            onPress={() =>
-              alert(`W: ${item.wins} L: ${item.games - item.wins}`)
-            }
+            onPress={() => {
+              this.props.navigation.navigate('Leaderboard Details', {
+                item
+              });
+            }}
           >
             <Text>
               {index + 1}. {item.commander}
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.leaderboard__deckElo}>
+        <View style={styles.leaderboard_deckElo}>
           <Text>{Number(item.elo).toFixed(2)}</Text>
         </View>
       </View>
@@ -48,7 +49,7 @@ export class LeaderboardScreen extends Component<Props> {
   _fetchData = async store => {
     await store.refetchLeaderBoard();
     this.setState({ isFetching: false }, () => {
-      console.warn("refreshed");
+      console.warn('refreshed');
     });
   };
 
@@ -64,9 +65,9 @@ export class LeaderboardScreen extends Component<Props> {
             onRefresh={() => this._onRefresh(rootStore)}
             data={rootStore.state.leaderboard}
             keyExtractor={item => JSON.stringify(item.id)}
-            renderItem={({ item, index }) =>
+            renderItem={({ item, index }) => (
               this._renderLeaderBoard(item, index)
-            }
+            )}
           />
         )}
       </Subscribe>
@@ -80,18 +81,18 @@ const styles = StyleSheet.create({
   },
   leaderboard: {
     flex: 1,
-    alignSelf: "stretch",
-    flexDirection: "row",
+    alignSelf: 'stretch',
+    flexDirection: 'row',
     padding: 15,
     borderBottomWidth: 3,
     borderBottomStartRadius: 15,
     borderBottomEndRadius: 15
   },
-  leaderboard__deckName: {
+  leaderboard_deckName: {
     flex: 2
   },
-  leaderboard__deckElo: {
+  leaderboard_deckElo: {
     flex: 1,
-    flexDirection: "row-reverse"
+    flexDirection: 'row-reverse'
   }
 });
