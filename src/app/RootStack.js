@@ -17,7 +17,13 @@ const LifeCounterNavigator = createStackNavigator(
     'Life Counter': {
       screen: MainScreen,
       navigationOptions: () => ({
-        title: 'Life Counter'
+        title: 'Life Counter',
+        headerStyle: {
+          backgroundColor: '#55409A'
+        },
+        headerTitleStyle: {
+          color: '#fff'
+        }
       })
     }
   },
@@ -30,7 +36,15 @@ const MyDecksNavigator = createStackNavigator(
   {
     'My Decks': {
       screen: MyDecksScreen,
-      navigationOptions: () => ({ title: 'My Decks' })
+      navigationOptions: () => ({
+        title: 'My Decks',
+        headerStyle: {
+          backgroundColor: '#55409A'
+        },
+        headerTitleStyle: {
+          color: '#fff'
+        }
+      })
     },
     'My Deck Details': DetailComponent
   },
@@ -43,7 +57,15 @@ const LeaderboardNavigator = createStackNavigator(
   {
     Leaderboard: {
       screen: LeaderboardScreen,
-      navigationOptions: () => ({ title: 'Leaderboard' })
+      navigationOptions: () => ({
+        title: 'Leaderboard',
+        headerStyle: {
+          backgroundColor: '#55409A'
+        },
+        headerTitleStyle: {
+          color: '#fff'
+        }
+      })
     },
     'Leaderboard Details': DetailComponent
   },
@@ -65,18 +87,19 @@ export const RootStack = createBottomTabNavigator(
     'My Decks': {
       screen: MyDecksNavigator,
       navigationOptions: () => ({
-        tabBarIcon: () => <Icon name="ios-person" size={25} />
+        tabBarIcon: () => <Icon name="ios-person" size={tabIconSize} />
       })
     },
     Leaderboard: {
       screen: LeaderboardNavigator,
       navigationOptions: () => ({
         headerTitle: 'Leaderboard',
-        tabBarIcon: () => <Icon name="ios-trophy" size={25} />
+        tabBarIcon: () => <Icon name="ios-trophy" size={tabIconSize} />
       })
     }
   },
   {
-    initialRouteName: 'Life Counter'
+    initialRouteName: 'Life Counter',
+    tabBarOptions: { activeTintColor: '#55409A' }
   }
 );

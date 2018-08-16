@@ -5,7 +5,8 @@ import {
   Text,
   View,
   Easing,
-  Animated
+  Animated,
+  StatusBar
 } from 'react-native';
 import { Container, Provider } from 'unstated';
 import { getMyInfo, getLeaderboard } from '../helpers';

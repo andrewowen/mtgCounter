@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import PlayerLifeButton from './PlayerLifeButton';
+
+const iconSize = 25;
 
 export class PlayerComponent extends Component {
   state = {
     currentLife: 40,
-    minLife: 0
+    minLife: 0,
+    color: this.props.backgroundColor || '#E6AF98'
   };
+
   addLife = () => {
     this.setState(prevState => ({
       currentLife: prevState.currentLife + 1
@@ -20,39 +25,45 @@ export class PlayerComponent extends Component {
   };
 
   render() {
-    const { store } = this.props;
+    const { store, item, deletePlayer, backgroundColor } = this.props;
+    const color = backgroundColor;
     return (
-      <View style={styles.playerContainer}>
-        <View style={styles.playerLifeContainer}>
-          <PlayerLifeButton
-            buttonText="+"
-            onPress={this.addLife}
-            currentLife={this.state.currentLife}
-          />
-          <Text style={styles.playerLifeText}>{this.state.currentLife}</Text>
-          <PlayerLifeButton
-            buttonText="-"
-            onPress={this.subtractLife}
-            currentLife={this.state.currentLife}
-          />
-        </View>
-        <TouchableOpacity
-          style={{
-            flex: 1,
-            flexDirection: 'row-reverse',
-            fontFamily: 'SourceCodePro-Bold'
-          }}
+      <View style={{ flex: 1, flexDirection: 'row' }}>
+        <View
+          style={[
+            styles.playerContainer,
+            { backgroundColor: this.state.color }
+          ]}
         >
-          <View
-            style={{
-              alignContent: 'center',
-              justifyContent: 'center',
-              alignContent: 'center'
-            }}
-          >
-            <Text style={{ color: '#fff', fontSize: 18 }}>delete</Text>
+          <View style={styles.playerLifeContainer}>
+            <PlayerLifeButton
+              buttonText="+"
+              onPress={this.addLife}
+              currentLife={this.state.currentLife}
+            />
+            <Text style={styles.playerLifeText}>{this.state.currentLife}</Text>
+            <PlayerLifeButton
+              buttonText="-"
+              onPress={this.subtractLife}
+              currentLife={this.state.currentLife}
+            />
           </View>
-        </TouchableOpacity>
+        </View>
+        <View
+          style={[
+            styles.playerDeleteButton,
+            { backgroundColor: this.state.color }
+          ]}
+        >
+          <TouchableOpacity
+            style={{ fontFamily: 'SourceCodePro-Bold' }}
+            onPress={() => deletePlayer(item)}
+          >
+            <View>
+              <Icon name="ios-close-circle" size={iconSize} />
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -60,11 +71,11 @@ export class PlayerComponent extends Component {
 
 const styles = StyleSheet.create({
   playerContainer: {
-    flex: 3,
+    flex: 5,
     flexDirection: 'row',
     backgroundColor: '#2C303A',
     padding: 10,
-    marginTop: 10,
+    marginBottom: 10,
     height: 140
   },
   playerLifeContainer: {
@@ -72,7 +83,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '30%',
     borderRadius: 10,
-    backgroundColor: '#2E7AC6'
+    backgroundColor: '#2C303A'
   },
   playerLifeText: {
     flex: 2,
@@ -80,5 +91,12 @@ const styles = StyleSheet.create({
     fontSize: 50,
     fontFamily: 'SourceCodePro-Bold',
     alignSelf: 'center'
+  },
+  playerDeleteButton: {
+    flex: 1,
+    flexDirection: 'row-reverse',
+    height: 140,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
