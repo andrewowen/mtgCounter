@@ -10,6 +10,8 @@ import { MyDecksScreen } from '../screens/MyDecksScreen';
 import { LeaderboardScreen } from '../screens/LeaderboardScreen';
 import DetailComponent from '../screens/DetailScreen';
 
+const tabIconSize = 25;
+
 const LifeCounterNavigator = createStackNavigator(
   {
     'Life Counter': {
@@ -77,20 +79,22 @@ export const RootStack = createBottomTabNavigator(
     'Life Counter': {
       screen: LifeCounterNavigator,
       navigationOptions: () => ({
-        tabBarIcon: () => <Icon name="logo-game-controller-a" size={25} />
+        tabBarIcon: () => (
+          <Icon name="logo-game-controller-a" size={tabIconSize} />
+        )
       })
     },
     'My Decks': {
       screen: MyDecksNavigator,
       navigationOptions: () => ({
-        tabBarIcon: () => <Icon name="ios-person" size={25} />
+        tabBarIcon: () => <Icon name="ios-person" size={tabIconSize} />
       })
     },
     Leaderboard: {
       screen: LeaderboardNavigator,
       navigationOptions: () => ({
         headerTitle: 'Leaderboard',
-        tabBarIcon: () => <Icon name="ios-trophy" size={25} />
+        tabBarIcon: () => <Icon name="ios-trophy" size={tabIconSize} />
       })
     }
   },
