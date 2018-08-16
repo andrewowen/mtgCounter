@@ -7,20 +7,40 @@ import {
   View
 } from 'react-native';
 import PlayerLifeButton from '../components/PlayerLifeButton';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Subscribe } from 'unstated';
 import { RootStore } from '../app/RootComponent';
 import { PlayerComponent } from '../components/PlayerComponent';
+import { mana } from '../helpers';
 
 export class MainScreen extends Component {
+  static navigationOptions = ({ navigation }) => {
+    const iconSize = 30;
+    const iconColor = '#fff';
+    return {
+      headerRight: (
+        <TouchableOpacity
+          style={{ marginRight: 10 }}
+          onPress={navigation.getParam('addPlayer')}
+        >
+          <Icon name="add" size={iconSize} color={iconColor} />
+        </TouchableOpacity>
+      )
+    };
+  };
+
+  componentDidMount() {
+    this.props.navigation.setParams({ addPlayer: this._addPlayer });
+  }
+
   state = {
     players: [{ key: '00000' }],
     playerBackgroundColor: [
-      '#E6AF98',
-      '#BBDEF4',
-      '#FFFBDC',
-      '#AECFB3',
-      '#838383'
+      mana.mountain,
+      mana.island,
+      mana.plains,
+      mana.forest,
+      mana.swamp
     ],
     selectedBackgroundColor: '',
     currentIndex: 1
@@ -65,32 +85,6 @@ export class MainScreen extends Component {
     players.splice(playerToRemove, 1);
     this.setState({ players });
   };
-
-  _renderAddPlayerButton = () => {
-    if (this.state.players.length < 5) {
-      return (
-        <TouchableOpacity onPress={() => this._addPlayer()}>
-          <View
-            style={{
-              backgroundColor: '#423184',
-              height: 40,
-              justifyContent: 'center'
-            }}
-          >
-            <Text
-              style={{
-                alignSelf: 'center',
-                color: '#ffff',
-                fontFamily: 'SourceCodePro-Bold'
-              }}
-            >
-              Add Player
-            </Text>
-          </View>
-        </TouchableOpacity>
-      );
-    }
-  };
   render() {
     return (
       <Subscribe to={[RootStore]}>
@@ -112,7 +106,6 @@ export class MainScreen extends Component {
                 />
               )}
             />
-            {this._renderAddPlayerButton()}
           </>
         )}
       </Subscribe>

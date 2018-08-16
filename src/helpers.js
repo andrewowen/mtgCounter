@@ -1,5 +1,13 @@
 import { API_KEY } from 'react-native-dotenv';
 
+export const mana = {
+  mountain: '#E6AF98',
+  island: '#BBDEF4',
+  plains: '#FFFBDC',
+  forest: '#AECFB3',
+  swamp: '#838383'
+};
+
 export const getMyInfo = async () => {
   let myInfo = await (await fetch('https://hawthorn.nishtahir.com/players/9', {
     headers: {
