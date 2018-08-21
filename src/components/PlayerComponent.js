@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import PlayerLifeButton from './PlayerLifeButton';
 
-const iconSize = 25;
+const iconSize = 30;
 
 export class PlayerComponent extends Component {
   state = {
@@ -75,8 +75,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#2C303A',
     padding: 10,
-    marginBottom: 10,
-    height: 140
+    height: '100%',
+    borderBottomWidth: 1,
+    borderBottomColor: '#787878'
   },
   playerLifeContainer: {
     flexDirection: 'column',
@@ -90,13 +91,16 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 50,
     fontFamily: 'SourceCodePro-Bold',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginBottom: -7
   },
   playerDeleteButton: {
     flex: 1,
     flexDirection: 'row-reverse',
-    height: 140,
+    height: '100%',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#787878'
   }
 });
